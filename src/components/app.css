@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+.container {
+    text-align: center;
+}
+
+.carousel-item {
+    width: 200px;
+    height: 300px;
+    background: #333;
+    color: #fff;
+}
+
+.carousel {
+    margin: auto;
+    max-width: 200px;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-nav {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+}
