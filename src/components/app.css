@@ -13,6 +13,20 @@
     color: #fff;
 }
 
+.carousel-item img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.carousel-track {
+    display: flex;
+}
+
+.carousel-items {
+    
+    width: 200px;
+}
+
 .carousel {
     margin: auto;
     max-width: 200px;
