@@ -1,10 +1,9 @@
-import React, { useState, Children } from 'react';
+import React, { useState, Children, useEffect } from 'react';
 
 const Carousel = ({ children }) => {
   const [currentSlide, changeSlide] = useState(0);
-  const [pixelsToSlide, changePixels] = useState(0);
-  const [touchedX, setTouchedPoint] = useState(0);
-  const [touchingX, setTouchingPoint] = useState(0);
+  const [touchStartPoint, setTouchStartPoint] = useState(0);
+  const [touchEndPoint, setTouchEndPoint] = useState(0);
   const slidesCount = Children.count(children);
 
   const goToPrevSlide = () => {
@@ -19,37 +18,29 @@ const Carousel = ({ children }) => {
       : changeSlide(currentSlide + 1);
   };
 
-  const handleTouchMove = (event) => {
-    setTouchingPoint(event.touches[0].clientX);
-
-    touchedX > touchingX
-      ? changePixels(touchedX - touchingX)
-      : changePixels(touchingX - touchedX);
+  const handleTouchStart = (event) => {
+    setTouchStartPoint(event.touches[0].clientX);
   };
 
-  const handleTouchEnd = () => {
-    if (pixelsToSlide >= 10) {
-      touchedX > touchingX ? goToNextSlide() : goToPrevSlide();
+  const handleTouchEnd = event => {
+    setTouchEndPoint(event.changedTouches[0].clientX);
+  };
+
+  useEffect(() => {
+    if (touchStartPoint - touchEndPoint >= 20) {
+      goToNextSlide();
+    } else if (touchStartPoint - touchEndPoint <= -20) {
+      goToPrevSlide();
     }
 
-    changePixels(0);
-  };
+    setTouchStartPoint(0);
+    setTouchEndPoint(0);
+  }, [touchEndPoint])
 
-  const handleTouchStart = (event) => {
-    setTouchedPoint(event.touches[0].clientX);
-  };
-
-
-
-  const defaultStyle = {
+  const trackStyle = {
     width: `${400 * slidesCount}px`,
+    transform: `translate3d(-${200 * currentSlide}px, 0px, 0px)`,
     transition: '0.3s',
-  };
-
-  const trackCurrentStyle = {
-    transform: `translate3d(-${
-      200 * currentSlide - pixelsToSlide
-    }px, 0px, 0px)`,
   };
 
   return (
@@ -57,12 +48,11 @@ const Carousel = ({ children }) => {
       <div className="carousel-items-list">
         <div
           className="carousel-track"
-          style={{ ...defaultStyle, ...trackCurrentStyle }}
-          onTouchMove={handleTouchMove}
+          style={trackStyle}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          {Children.map(children, (child, i) => (
+          {Children.map(children, (child) => (
             <div className="carousel-item">{child}</div>
           ))}
         </div>
