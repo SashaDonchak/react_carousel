@@ -1,10 +1,17 @@
-import React, { useState, Children, useEffect } from 'react';
+import React, { useState, Children, useEffect, useRef } from 'react';
 
 const Carousel = ({ children }) => {
   const [currentSlide, changeSlide] = useState(0);
   const [touchStartPoint, setTouchStartPoint] = useState(0);
-  const [touchEndPoint, setTouchEndPoint] = useState(0);
+  const [currentPoint, setCurrentPoint] = useState(0);
+  const [width, setWidth] = useState(0);
+
+  const container = useRef(null);
+  const track = useRef(null);
+
   const slidesCount = Children.count(children);
+
+  const deltaX = currentPoint === 0 ? 0 : touchStartPoint - currentPoint;
 
   const goToPrevSlide = () => {
     currentSlide <= 0
@@ -19,41 +26,50 @@ const Carousel = ({ children }) => {
   };
 
   const handleTouchStart = (event) => {
-    setTouchStartPoint(event.touches[0].clientX);
+    const { clientX } = (event.touches && event.touches[0]) || event
+    setTouchStartPoint(clientX);
   };
 
-  const handleTouchEnd = event => {
-    setTouchEndPoint(event.changedTouches[0].clientX);
-  };
+  const handleTouchMove = event => {
+    const { clientX } = (event.touches && event.touches[0]) || event
+    setCurrentPoint(clientX);
+  }
 
-  useEffect(() => {
-    if (touchStartPoint - touchEndPoint >= 20) {
+  const handleTouchEnd = () => {
+    console.log(touchStartPoint);
+    if (deltaX >= 20) {
       goToNextSlide();
-    } else if (touchStartPoint - touchEndPoint <= -20) {
+    } else if (deltaX <= -20) {
       goToPrevSlide();
     }
 
     setTouchStartPoint(0);
-    setTouchEndPoint(0);
-  }, [touchEndPoint])
+    setCurrentPoint(0);
+  };
+
+  useEffect(() => {
+    setWidth(container.current.clientWidth);
+  }, [])
 
   const trackStyle = {
-    width: `${400 * slidesCount}px`,
-    transform: `translate3d(-${200 * currentSlide}px, 0px, 0px)`,
-    transition: '0.3s',
+    width: `${width * slidesCount}px`,
+    transform: `translate3d(-${width * currentSlide + deltaX}px, 0px, 0px)`,
+    transition: deltaX === 0 ? '.3s' : 'none'
   };
 
   return (
-    <div className="carousel">
+    <div className="carousel" ref={container}>
       <div className="carousel-items-list">
         <div
           className="carousel-track"
+          ref={track}
           style={trackStyle}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
+          onTouchMove={handleTouchMove}
         >
           {Children.map(children, (child) => (
-            <div className="carousel-item">{child}</div>
+            <div className="carousel-item" style={{ width }}>{child}</div>
           ))}
         </div>
       </div>
