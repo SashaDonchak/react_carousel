@@ -20,7 +20,7 @@ const Nav = ({ slidesCount, currentSlide, changeSlide }) => {
             key={index}
           >
             <img
-              src="./src/components/Nav/circle-fill.svg"
+              src="./assets/images/circle-fill.svg"
               alt="circle--fill"
             />
           </button>
@@ -31,7 +31,7 @@ const Nav = ({ slidesCount, currentSlide, changeSlide }) => {
             key={index}
             onClick={() => changeSlide(index)}
           >
-            <img src="./src/components/Nav/circle.svg" alt="circle" />
+            <img src="./assets/images/circle.svg" alt="circle" />
           </button>
         )
       )}

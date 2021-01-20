@@ -5,11 +5,12 @@
   "repository": "git@github.com:SashaDonchak/react_carousel.git",
   "author": "Sasha Donchak <pracadonchak@gmail.com>",
   "license": "MIT",
-  "homepage": "http://sashadonchak.github.io/react_carousel",
+  "homepage": "https://sashadonchak.github.io/react_carousel/",
   "scripts": {
     "dev": "webpack serve webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
     "lint": "npx eslint 'src/**/*.{js,jsx}' --fix",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build"
   },
   "dependencies": {
