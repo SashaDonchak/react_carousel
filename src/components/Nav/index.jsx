@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CircleIcon from './circle.svg';
+import CircleFillIcon from './circle-fill.svg';
 import './style.css';
 
 const Nav = ({ slidesCount, currentSlide, changeSlide }) => {
@@ -20,7 +22,7 @@ const Nav = ({ slidesCount, currentSlide, changeSlide }) => {
             key={index}
           >
             <img
-              src="./assets/images/circle-fill.svg"
+              src={CircleFillIcon}
               alt="circle--fill"
             />
           </button>
@@ -31,7 +33,7 @@ const Nav = ({ slidesCount, currentSlide, changeSlide }) => {
             key={index}
             onClick={() => changeSlide(index)}
           >
-            <img src="./assets/images/circle.svg" alt="circle" />
+            <img src={CircleIcon} alt="circle" />
           </button>
         )
       )}
