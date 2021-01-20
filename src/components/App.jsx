@@ -6,14 +6,14 @@ const App = () => (
   <>
     <div className="container">
       <h1>Hello, carousel!</h1>
-      <Carousel>
+      <Carousel arrows nav slidesToShow={2}>
         <img src="./src/images/image1.jpg" alt="test" />
         <div>
           <img src="./src/images/image2.jpg" alt="test" />
-          <span>Wondeful!</span>
+          <span>Wonderful!</span>
         </div>
-        <div>test2</div>
-        <div>test3</div>
+        <div>Slide 3</div>
+        <div>Slide 4</div>
       </Carousel>
     </div>
   </>

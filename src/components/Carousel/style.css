@@ -1,0 +1,28 @@
+.carousel-item {
+    background: #333;
+    height: 100%;
+    color: #fff;
+}
+
+.carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.carousel-track {
+    display: flex;
+    height: 100%;
+}
+
+.carousel-items-list {
+    overflow: hidden;
+    height: 100%;
+}
+
+.carousel {
+    height: 100%;
+    margin: auto;
+    position: relative;
+}
+

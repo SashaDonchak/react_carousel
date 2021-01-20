@@ -1,6 +1,9 @@
 import React, { useState, Children, useEffect, useRef } from 'react';
+import Arrows from '../Arrows';
+import Nav from '../Nav';
+import './style.css';
 
-const Carousel = ({ children }) => {
+const Carousel = ({ children, arrows, nav, slidesToShow = 1 }) => {
   const [currentSlide, changeSlide] = useState(0);
   const [touchStartPoint, setTouchStartPoint] = useState(0);
   const [currentPoint, setCurrentPoint] = useState(0);
@@ -53,9 +56,13 @@ const Carousel = ({ children }) => {
 
   const trackStyle = {
     width: `${width * slidesCount}px`,
-    transform: `translate3d(-${width * currentSlide + deltaX}px, 0px, 0px)`,
+    transform: `translate3d(-${width/slidesToShow * currentSlide + deltaX}px, 0px, 0px)`,
     transition: deltaX === 0 ? '.3s' : 'none'
   };
+
+  const itemStyle = {
+    width: `${width/slidesToShow}px`
+  }
 
   return (
     <div className="carousel" ref={container}>
@@ -69,18 +76,19 @@ const Carousel = ({ children }) => {
           onTouchMove={handleTouchMove}
         >
           {Children.map(children, (child) => (
-            <div className="carousel-item" style={{ width }}>{child}</div>
+            <div className="carousel-item" style={itemStyle}>{child}</div>
           ))}
         </div>
       </div>
-      <div className="carousel-nav">
-        <button className="carousel-nav__prev" onClick={goToPrevSlide}>
-          Prev
-        </button>
-        <button className="carousel-nav__next" onClick={goToNextSlide}>
-          Next
-        </button>
-      </div>
+      {arrows
+        ? <Arrows goToPrevSlide={goToPrevSlide} goToNextSlide={goToNextSlide} />
+        : ''
+      }
+      {nav
+        ? <Nav changeSlide={changeSlide} slidesCount={Children.count(children)} currentSlide={currentSlide}/>
+        : ''
+      }
+
     </div>
   );
 };

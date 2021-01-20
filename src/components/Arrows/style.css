@@ -1,0 +1,31 @@
+.carousel-arrows {
+    margin-top: 40px;
+    display: flex;
+    position: relative;
+}
+
+.carousel-arrow {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    display: block;
+    width: 30px;
+    height: 30px;
+    transition: .3s;
+}
+
+.carousel-arrow:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.carousel-arrow img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.carousel-arrow + .carousel-arrow {
+    margin-left: 20px;
+}

@@ -1,42 +1,21 @@
 * {
     box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
 }
 
 .container {
     text-align: center;
     max-width: 600px;
     margin: auto;
+    height: 700px;
 }
 
-.carousel-item {
-    background: #333;
-    color: #fff;
+.carousel-item:nth-child(odd) {
+    background-color: #FF5733;
 }
 
-.carousel-item img {
-    width: 100%;
-    object-fit: cover;
+.carousel-item:nth-child(even) {
+    background-color: #89CFF0;
 }
 
-.carousel-track {
-    display: flex;
-}
-
-.carousel-items {
-}
-
-.carousel {
-    margin: auto;
-    position: relative;
-    overflow: hidden;
-    max-height: 500px;
-}
-
-.carousel-nav {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-}

@@ -1,0 +1,31 @@
+.carousel-nav {
+    margin-top: 40px;
+    display: flex;
+    position: relative;
+}
+
+.carousel-nav-item {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    display: block;
+    width: 15px;
+    height: 15px;
+    transition: .3s;
+}
+
+.carousel-nav-item:hover{
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.carousel-nav-item img {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+}
+
+.carousel-nav-item + .carousel-nav-item {
+    margin-left: 10px;
+}
