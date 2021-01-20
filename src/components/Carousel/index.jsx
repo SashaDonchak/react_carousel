@@ -38,9 +38,9 @@ const Carousel = ({ children, arrows, nav, slidesToShow = 1 }) => {
   };
 
   const handleTouchEnd = () => {
-    if (deltaX >= 20) {
+    if (deltaX >= 50) {
       goToNextSlide();
-    } else if (deltaX <= -20) {
+    } else if (deltaX <= -50) {
       goToPrevSlide();
     }
 
